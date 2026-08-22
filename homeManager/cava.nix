@@ -6,8 +6,9 @@
 
 let
   cfg = config.matugen.targets.cava;
-
-  inherit (config.matugen.theme.generated) base16;
+  inherit (config.matugen.theme.generated)
+    base16
+    ;
 
   pack = color: "'${color}'";
   pair = (pos: color: lib.nameValuePair "gradient_color_${toString (pos + 1)}" (pack color));
