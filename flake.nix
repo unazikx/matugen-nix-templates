@@ -6,7 +6,10 @@
     in
     {
       homeModules.default = {
-        imports = (import-tree ./homeManager);
+        imports = builtins.concatLists [
+          (import-tree ./homeManager)
+          (import-tree ./shared)
+        ];
       };
     };
 }
