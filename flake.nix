@@ -1,7 +1,10 @@
 {
-  outputs = inputs: {
-    homeModules = {
-      cava = import ./modules/homeManager/cava.nix;
+  outputs =
+    _:
+    let
+      import-tree = import ./import-tree.nix;
+    in
+    {
+      homeModules = import-tree ./homeManager;
     };
-  };
 }
