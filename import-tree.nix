@@ -1,38 +1,17 @@
 path:
 
 let
-  files = builtins.readDir path;
-
-  process =
-    name: type:
+  traverse = builtins.foldl' (
+    acc: name:
     let
       fullPath = "${path}/${name}";
+      type = builtins.typeOf (import fullPath);
     in
-    if (type == "directory") then
-      {
-        ${name} = traverse fullPath;
-      }
-    else if ((type == "regular") && (builtins.match ".*\\.nix$" name != null)) then
-      (
-        let
-          attrName = builtins.substring 0 (builtins.stringLength name - 4) name;
-        in
-        {
-          ${attrName} = import fullPath;
-        }
-      )
+    if ((type == "lambda") || (type == "set") || (type == "path")) then
+      (acc ++ [ (import fullPath) ])
     else
-      { };
-
-  traverse = (
-    builtins.foldl' (
-      acc: name:
-      let
-        result = process name (builtins.getAttr name files);
-      in
-      (acc // result)
-    ) { } (builtins.attrNames files)
-  );
+      acc
+  ) [ ] (builtins.attrNames (builtins.readDir path));
 in
 
 traverse

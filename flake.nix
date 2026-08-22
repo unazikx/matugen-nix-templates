@@ -5,6 +5,8 @@
       import-tree = import ./import-tree.nix;
     in
     {
-      homeModules = import-tree ./homeManager;
+      homeModules.default = {
+        imports = (import-tree ./homeManager);
+      };
     };
 }
