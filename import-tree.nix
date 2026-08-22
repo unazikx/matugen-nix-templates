@@ -1,6 +1,10 @@
 path:
 
 let
+  allFiles = builtins.attrNames (builtins.readDir path);
+
+  filteredFiles = builtins.filter (name: builtins.substring 0 1 name != "_") allFiles;
+
   traverse = builtins.foldl' (
     acc: name:
     let
@@ -11,7 +15,7 @@ let
       (acc ++ [ (import fullPath) ])
     else
       acc
-  ) [ ] (builtins.attrNames (builtins.readDir path));
+  ) [ ] filteredFiles;
 in
 
 traverse
