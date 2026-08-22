@@ -11,17 +11,6 @@ let
     ;
 
   pack = color: "'${color}'";
-  pair = (pos: color: lib.nameValuePair "gradient_color_${toString (pos + 1)}" (pack color));
-
-  colorsList = [
-    base16.base0e.default
-    base16.base0d.default
-    base16.base0c.default
-    base16.base0b.default
-    base16.base0a.default
-    base16.base09.default
-    base16.base08.default
-  ];
 in
 
 {
@@ -35,15 +24,20 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.cava = {
-      settings.color = lib.mkMerge [
-        (builtins.listToAttrs (lib.imap0 pair colorsList))
-        {
-          background = pack base16.base00.default;
-          foreground = pack base16.base05.default;
-          gradient = 1;
-          gradient_count = builtins.length colorsList;
-        }
-      ];
+      settings.color = {
+        background = pack base16.base00.default;
+        foreground = pack base16.base05.default;
+
+        gradient = 1;
+        gradient_color_1 = base16.base0e.default;
+        gradient_color_2 = base16.base0d.default;
+        gradient_color_3 = base16.base0c.default;
+        gradient_color_4 = base16.base0b.default;
+        gradient_color_5 = base16.base0a.default;
+        gradient_color_6 = base16.base09.default;
+        gradient_color_7 = base16.base08.default;
+        gradient_count = 7;
+      };
     };
   };
 }
