@@ -5,7 +5,7 @@
 }:
 
 let
-  cfg = config.matugen.targets.example;
+  cfg = config.matugen.example;
 
   inherit (config.matugen.theme.generated)
     base16
@@ -18,8 +18,8 @@ in
   imports = [ ];
 
   options = {
-    matugen.targets.example = {
-      enable = lib.mkEnableOption "Example theming";
+    matugen.example = {
+      enable = lib.mkEnableOption "Example";
     };
   };
 
