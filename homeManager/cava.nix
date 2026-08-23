@@ -9,8 +9,6 @@ let
   inherit (config.matugen.theme.generated)
     base16
     ;
-
-  pack = color: "'${color}'";
 in
 
 {
@@ -25,8 +23,8 @@ in
   config = lib.mkIf cfg.enable {
     programs.cava = {
       settings.color = {
-        background = pack base16.base00.default;
-        foreground = pack base16.base05.default;
+        background = base16.base00.default;
+        foreground = base16.base05.default;
 
         gradient = 1;
         gradient_color_1 = base16.base0e.default;
